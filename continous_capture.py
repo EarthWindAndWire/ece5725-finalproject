@@ -66,11 +66,9 @@ class Tag_detect(threading.Thread):
 
         if detected_circles is not None: 
 
-            # Convert the circle parameters a, b and r to integers. 
+            # Convert the circle center (a,b) and radius r into integers 
             detected_circles = np.uint16(np.around(detected_circles))
-            #print(detected_circles)
             pt = detected_circles[0,0]
-            # a: Vertical coord;   b: horizontal coord
             a, b, r = pt[0], pt[1], pt[2]
             cv2.circle(green, (a, b), r, (255, 255, 255), 2) 
         else:
@@ -84,7 +82,7 @@ class Tag_detect(threading.Thread):
             tag = np.uint8(tag)
             return tag
         
-        # make tag a scare
+        # make tag into a square
         gray_roi = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
         if gray_roi.shape[0] != gray_roi.shape[1]:
             if gray_roi.shape[0] < gray_roi.shape[1]:
